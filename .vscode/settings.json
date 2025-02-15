@@ -22,6 +22,6 @@
     "**/.vscode": true,
     "**/.next": true,
     "**/node_modules": true,
-    "next-evn.d.ts": true
+    "next-env.d.ts": true
   }
 }
