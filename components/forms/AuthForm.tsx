@@ -23,7 +23,6 @@ import {
 import { Input } from "@/components/ui/input";
 import ROUTES from "@/constants/routes";
 
-
 interface AuthFormProps<T extends FieldValues> {
   schema: ZodType<T>;
   defaultValues: T;
@@ -35,7 +34,7 @@ const AuthForm = <T extends FieldValues>({
   schema,
   defaultValues,
   formType,
-  onSubmit,
+  // onSubmit,
 }: AuthFormProps<T>) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof schema>>({
@@ -97,7 +96,7 @@ const AuthForm = <T extends FieldValues>({
 
         {formType === "SIGN_IN" ? (
           <p>
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href={ROUTES.SIGN_UP}
               className="paragraph-semibold primary-text-gradient"
