@@ -8,10 +8,10 @@ export interface IUser {
   image: string;
   location: string;
   portfolio: string;
-  repuatation: number;
+  reputation: number;
 }
 
-const UserScheman = new Schema(
+const UserScheman = new Schema<IUser>(
   {
     name: { type: String, require: true },
     username: { type: String, require: true },
