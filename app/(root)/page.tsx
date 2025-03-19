@@ -1,4 +1,3 @@
-import image from "next/image";
 import Link from "next/link";
 
 import QuestionCard from "@/components/cards/QuestionCard";
@@ -6,6 +5,9 @@ import HomeFilter from "@/components/filter/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
+import handleError from "@/lib/handlers/error";
+import { ValidationError } from "@/lib/http-errors";
+import dbConnect from "@/lib/mongoose";
 
 interface SearchParams {
   searchParams: Promise<{ [key: string]: string }>; // { query: "react" }
@@ -49,6 +51,21 @@ const questions = [
     createdAt: new Date(),
   },
 ];
+
+const test = async () => {
+  try {
+    // await dbConnect();
+    throw new ValidationError({
+      title: ["Required"],
+      tags: ['"JavaScript" is not a valid tag.'],
+    });
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+const result = await test();
+console.log(result);
 
 const Home = async ({ searchParams }: SearchParams) => {
   const { query = "", filter = "" } = await searchParams;
