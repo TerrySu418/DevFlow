@@ -11,13 +11,13 @@ export interface IUser {
   reputation: number;
 }
 
-const UserScheman = new Schema<IUser>(
+const UserSchema = new Schema<IUser>(
   {
-    name: { type: String, require: true },
-    username: { type: String, require: true },
-    email: { type: String, require: true, unique: true },
+    name: { type: String, required: true },
+    username: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     bio: { type: String },
-    image: { type: String, require: true },
+    image: { type: String, required: true },
     location: { type: String },
     portfolio: { type: String },
     reputation: { type: Number, default: 0 },
@@ -27,6 +27,6 @@ const UserScheman = new Schema<IUser>(
   }
 );
 
-const User = models?.user || model<IUser>("User", UserScheman);
+const User = models?.User || model<IUser>("User", UserSchema);
 
 export default User;

@@ -23,6 +23,6 @@ const AccountSechema = new Schema<IAccount>(
   }
 );
 
-const Account = models?.account || model<IAccount>("Account", AccountSechema);
+const Account = models?.Account || model<IAccount>("Account", AccountSechema);
 
 export default Account;
