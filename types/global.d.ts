@@ -23,7 +23,7 @@ export interface Question {
 }
 
 export type ActionResponse<T = null> = {
-  sucess: boolean;
+  success: boolean;
   data?: T;
   error?: {
     message: string;
