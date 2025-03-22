@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 import Account from "@/database/account.model";
-import User from "@/database/user.model";
 import handleError from "@/lib/handlers/error";
 import {
   ForbiddenError,
@@ -36,7 +35,7 @@ export async function PUT(request: Request) {
     if (!validatedData.success)
       throw new ValidationError(validatedData.error.flatten().fieldErrors);
 
-    const existingAccount = await User.findOne({
+    const existingAccount = await Account.findOne({
       provider: validatedData.data.provider,
       providerAccountId: validatedData.data.providerAccountId,
     });
