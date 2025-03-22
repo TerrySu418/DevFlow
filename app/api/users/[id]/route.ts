@@ -32,15 +32,15 @@ export async function DELETE(
 ) {
   // TODO: should also delete the content which the user has created
   const { id } = await params;
-  if (id) throw new NotFoundError("User");
+  if (!id) throw new NotFoundError("User");
   try {
     await dbConnect();
 
-    const user = User.findByIdAndDelete(id);
+    const user = await User.findByIdAndDelete(id);
     if (!user) throw new NotFoundError("User");
     return NextResponse.json({ success: true, data: user }, { status: 200 });
   } catch (error) {
-    handleError(error, "api") as APIErrorResponse;
+    return handleError(error, "api") as APIErrorResponse;
   }
 }
 
@@ -50,25 +50,25 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const body = await request.json();
   const { id } = await params;
-  if (id) throw new NotFoundError("User");
+  if (!id) throw new NotFoundError("User");
   try {
     await dbConnect();
+    const body = await request.json();
 
     const validatedData = UserSchema.partial().safeParse(body);
     if (!validatedData.success)
       throw new ValidationError(validatedData.error.flatten().fieldErrors);
 
-    const updatedUser = User.findByIdAndUpdate(id, validatedData, {
+    const updatedUser = await User.findByIdAndUpdate(id, validatedData.data, {
       new: true,
     });
-    if (!updatedUser) throw new NotFoundError("User")
+    if (!updatedUser) throw new NotFoundError("User");
     return NextResponse.json(
       { success: true, data: updatedUser },
       { status: 200 }
     );
   } catch (error) {
-    handleError(error, "api") as APIErrorResponse;
+    return handleError(error, "api") as APIErrorResponse;
   }
 }
