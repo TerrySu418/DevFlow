@@ -4,7 +4,7 @@ import logger from "../logger";
 import handleError from "./error";
 import { RequestError } from "../http-errors";
 
-interface FetchOptical extends RequestInit {
+interface FetchOptional extends RequestInit {
   timeout?: number;
 }
 
@@ -14,7 +14,7 @@ const isError = (error: unknown): error is Error => {
 
 export async function fetchHandler<T>(
   url: string,
-  options: FetchOptical = {}
+  options: FetchOptional = {}
 ): Promise<ActionResponse<T>> {
   const {
     timeout = 5000,
@@ -25,7 +25,7 @@ export async function fetchHandler<T>(
   const id = setTimeout(() => controller.abort(), timeout);
   const defaultHeaders: HeadersInit = {
     "Content-Type": "application/json",
-    Accept: "application/json",
+    "Accept": "application/json",
   };
   const headers: HeadersInit = { ...defaultHeaders, ...customHeader };
   const config: RequestInit = {
@@ -40,14 +40,17 @@ export async function fetchHandler<T>(
     clearTimeout(id);
 
     if (!response.ok) {
-      throw new RequestError(response.status, `HTTP error: ${response.status}`);
+      throw new RequestError(
+        response.status,
+        `HTTP error: ${response.statusText}`
+      );
     }
 
     return await response.json();
   } catch (err) {
-    const error = isError(err) ? err : new Error("Unknow error");
+    const error = isError(err) ? err : new Error("Unknown error");
     if (error.name === "AbortError") {
-      logger.warn(`REquest ot ${url} timed out`);
+      logger.warn(`Request to ${url} timed out`);
     } else {
       logger.error(`Error fetching ${url}: ${error.message}`);
     }
