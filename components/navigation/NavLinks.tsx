@@ -10,10 +10,14 @@ import { cn } from "@/lib/utils";
 
 import { SheetClose } from "../ui/sheet";
 
-const NavLinks = ({ isMobileNav = false }: { isMobileNav?: boolean }) => {
+const NavLinks = ({
+  isMobileNav = false,
+  userId,
+}: {
+  isMobileNav?: boolean;
+  userId?: string;
+}) => {
   const pathname = usePathname();
-
-  const userId = 1;
 
   return (
     <>
