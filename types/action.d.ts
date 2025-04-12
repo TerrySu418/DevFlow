@@ -15,3 +15,9 @@ interface AuthCredentials {
   password: string;
   email: string;
 }
+
+interface CreateQuestionParams {
+  title: string;
+  content: string;
+  tags: string[];
+}

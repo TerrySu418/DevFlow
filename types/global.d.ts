@@ -11,7 +11,7 @@ interface Author {
   image: string;
 }
 
-export interface Question {
+export interface TQuestions {
   _id: string;
   title: string;
   tags: Tag[];
@@ -37,3 +37,12 @@ type ErrorResponse = ActionResponse<undefined> & { success: false };
 
 type APIErrorResponse = NextResponse<ErrorResponse>;
 type APIResponse<T = null> = NextResponse<SuccessResponse<T> | ErrorResponse>;
+
+interface RouteParams {
+  params: Promise<Record<string, string>>;
+  searchParams: Promise<Record<string, string>>;
+}
+
+// difference between params and searchParams
+// params: /question/121
+// searchParams: /quesiton?tag=javascript
