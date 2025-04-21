@@ -11,18 +11,21 @@ interface Author {
   image: string;
 }
 
-export interface TQuestions {
+interface TQuestion {
   _id: string;
   title: string;
+  content: string;
   tags: Tag[];
   author: Author;
   createdAt: Date;
+  updatedAt: Date;
   upvotes: number;
+  downvotes?: number;
   views: number;
   answers: number;
 }
 
-export type ActionResponse<T = null> = {
+type ActionResponse<T = null> = {
   success: boolean;
   data?: T;
   error?: {
@@ -46,3 +49,12 @@ interface RouteParams {
 // difference between params and searchParams
 // params: /question/121
 // searchParams: /quesiton?tag=javascript
+
+
+interface PaginatedSearchParams {
+  page?: number;
+  pageSize?: number;
+  query?: string;
+  filter?: string;
+  sort?: string
+}

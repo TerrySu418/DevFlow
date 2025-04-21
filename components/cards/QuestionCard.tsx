@@ -3,13 +3,13 @@ import React from "react";
 
 import ROUTES from "@/constants/routes";
 import { getTimeStamp } from "@/lib/utils";
-import { Question, Tag } from "@/types/global";
+import { Tag, TQuestion } from "@/types/global";
 
 import TagCard from "./TagCard";
 import Metric from "../Metric";
 
 interface Props {
-  question: Question;
+  question: TQuestion;
 }
 
 const QuestionCard = ({

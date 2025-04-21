@@ -15,10 +15,11 @@ export const getDeviconClassName = (techName: string) => {
     : "devicon-javascript-plain";
 };
 
-export const getTimeStamp = (date: Date) => {
+export const getTimeStamp = (createdAt: Date) => {
+  const date = new Date(createdAt);
   const now = new Date();
-  const secondsAgo = Math.floor((now.getTime() - date.getTime()) / 1000);
 
+  const secondsAgo = Math.floor((now.getTime() - date.getTime()) / 1000);
   const units = [
     { label: "year", seconds: 31536000 },
     { label: "month", seconds: 2592000 },
