@@ -3,7 +3,7 @@ import React from "react";
 
 import ROUTES from "@/constants/routes";
 import { getTimeStamp } from "@/lib/utils";
-import { Tag, TQuestion } from "@/types/global";
+import { TTag, TQuestion } from "@/types/global";
 
 import TagCard from "./TagCard";
 import Metric from "../Metric";
@@ -32,7 +32,7 @@ const QuestionCard = ({
       </div>
 
       <div className="mt-3.5 flex w-full flex-wrap gap-2">
-        {tags.map((tag: Tag) => (
+        {tags.map((tag: TTag) => (
           <TagCard key={tag._id} _id={tag._id} name={tag.name} compact />
         ))}
       </div>

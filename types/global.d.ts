@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 interface TTag {
   _id: string;
   name: string;
+  questions: number;
 }
 
 interface Author {
@@ -50,11 +51,10 @@ interface RouteParams {
 // params: /question/121
 // searchParams: /quesiton?tag=javascript
 
-
 interface PaginatedSearchParams {
   page?: number;
   pageSize?: number;
   query?: string;
   filter?: string;
-  sort?: string
+  sort?: string;
 }
