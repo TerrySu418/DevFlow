@@ -13,6 +13,8 @@ export interface IQuestion {
 
 export interface IQuestionDoc extends IQuestion, Document {
   _id: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface PopulatedQuestionDoc
@@ -24,7 +26,7 @@ export interface PopulatedQuestionDoc
   }>;
   author: {
     _id: string;
-    name?: string;
+    name: string;
     image?: string;
   };
 }
