@@ -51,10 +51,17 @@ interface RouteParams {
 // params: /question/121
 // searchParams: /quesiton?tag=javascript
 
-interface PaginatedSearchParams {
+export interface PaginatedSearchParams {
   page?: number;
   pageSize?: number;
   query?: string;
   filter?: string;
   sort?: string;
+}
+
+interface TAnswer {
+  _id: string;
+  author: Author;
+  content: string;
+  createdAt: Date;
 }
