@@ -28,7 +28,7 @@ interface TQuestion {
 
 type ActionResponse<T = null> = {
   success: boolean;
-  data?: T;
+  data: T;
   error?: {
     message: string;
     details?: Record<string, string[]>;
