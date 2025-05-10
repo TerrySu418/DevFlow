@@ -102,7 +102,7 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
         });
       }
 
-      const formattedAnswer = data.replace(/<br>/g, " ").toString().trim();
+      const formattedAnswer = data!.replace(/<br>/g, " ").toString().trim();
 
       if (editorRef.current) {
         editorRef.current.setMarkdown(formattedAnswer);

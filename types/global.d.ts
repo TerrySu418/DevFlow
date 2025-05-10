@@ -28,7 +28,7 @@ interface TQuestion {
 
 type ActionResponse<T = null> = {
   success: boolean;
-  data: T;
+  data?: T;
   error?: {
     message: string;
     details?: Record<string, string[]>;
@@ -64,4 +64,18 @@ interface TAnswer {
   author: Author;
   content: string;
   createdAt: Date;
+  upvotes: number;
+  downvotes: number;
+}
+
+interface TUser {
+  _id: string;
+  name: string;
+  username: string;
+  email: string;
+  bio?: string;
+  image?: string;
+  location?: string;
+  portfolio?: string;
+  reputation?: number;
 }
