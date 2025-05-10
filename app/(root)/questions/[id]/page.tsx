@@ -38,7 +38,7 @@ const QuestionDetials = async ({ params }: RouteParams) => {
     filter: "latest",
   });
 
-  console.log("ANSWERS", answersResult);
+  // console.log("ANSWERS", answersResult);
 
   after(async () => {
     await incrementViews({ questionId: id });
