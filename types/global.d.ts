@@ -79,3 +79,9 @@ interface TUser {
   portfolio?: string;
   reputation?: number;
 }
+
+interface TCollection {
+  _id: string;
+  author: string | Author;
+  question: Question;
+}

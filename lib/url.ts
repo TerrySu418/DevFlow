@@ -1,4 +1,4 @@
-import qs from "query-string"
+import qs from "query-string";
 
 interface UrlQueryParams {
   params: string;
