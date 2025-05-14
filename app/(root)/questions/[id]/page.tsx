@@ -19,8 +19,10 @@ import { hasVoted } from "@/lib/actions/vote.action";
 import { formatNumber, getTimeStamp } from "@/lib/utils";
 import { RouteParams, TTag } from "@/types/global";
 
-const QuestionDetials = async ({ params }: RouteParams) => {
+const QuestionDetials = async ({ params, searchParams }: RouteParams) => {
   const { id } = await params;
+
+  const { page, pageSize, filter } = await searchParams;
 
   const { success, data: question } = await getQuestion({ questionId: id });
 
@@ -35,9 +37,9 @@ const QuestionDetials = async ({ params }: RouteParams) => {
     error: answersError,
   } = await getAnswers({
     questionId: id,
-    page: 1,
-    pageSize: 10,
-    filter: "latest",
+    page: Number(page) || 1,
+    pageSize: Number(pageSize) || 10,
+    filter,
   });
 
   // console.log("ANSWERS", answersResult);
@@ -135,6 +137,8 @@ const QuestionDetials = async ({ params }: RouteParams) => {
 
       <section className="my-5">
         <AllAnswers
+          page={Number(page) || 1}
+          isNext={answersResult?.isNext || false}
           data={answersResult?.answers}
           success={areAnswersLoaded}
           error={answersError}
