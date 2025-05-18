@@ -4,10 +4,9 @@ import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
-import Account, { IAccountDoc } from "./database/account.model";
-import User from "./database/user.model";
+import { IAccountDoc } from "./database/account.model";
+import { IUserDoc } from "./database/user.model";
 import { api } from "./lib/api";
-import dbConnect from "./lib/mongoose";
 import { SignInSchema } from "./lib/validations";
 import { ActionResponse } from "./types/global";
 
@@ -21,31 +20,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (validatedField.success) {
           const { email, password } = validatedField.data;
 
-          // const { data: existingAccount } = (await api.accounts.getByProvider(
-          //   email
-          // )) as ActionResponse<IAccountDoc>;
-
-          // if (!existingAccount) return null;
-
-          // const {data: existingUser} = (await api.users.getById(
-          //   existingAccount.userId.toString()
-          // )) as ActionResponse<IUserDoc>;
-
-          // if (!existingUser) return null;
-
-          await dbConnect(); // Connect to the database
-
-          // Direct database query instead of API call
-          const existingAccount = await Account.findOne({
-            // provider: "credentials",
-            providerAccountId: email,
-          });
+          const { data: existingAccount } = (await api.accounts.getByProvider(
+            email
+          )) as ActionResponse<IAccountDoc>;
 
           if (!existingAccount) return null;
 
-          // Direct database query instead of API call
-          const existingUser = await User.findById(existingAccount.userId);
+          const { data: existingUser } = (await api.users.getById(
+            existingAccount.userId.toString()
+          )) as ActionResponse<IUserDoc>;
+
           if (!existingUser) return null;
+
+          // await dbConnect(); // Connect to the database
+
+          // // Direct database query instead of API call
+          // const existingAccount = await Account.findOne({
+          //   // provider: "credentials",
+          //   providerAccountId: email,
+          // });
+
+          // if (!existingAccount) return null;
+
+          // Direct database query instead of API call
+          // const existingUser = await User.findById(existingAccount.userId);
+          // if (!existingUser) return null;
 
           const isValidPassword = await bcrypt.compare(
             password,
