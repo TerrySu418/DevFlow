@@ -1,7 +1,9 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+import { BADGE_CRITERIA } from "@/constants";
 import { techMap } from "@/constants/techMap";
+import { Badges } from "@/types/global";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -80,6 +82,89 @@ export const formatNumber = (number: number) => {
   } else if (number >= 1000) {
     return (number / 1000).toFixed(1) + "K";
   } else {
-    return number.toString();
+    return number?.toString();
   }
 };
+
+// export const getTimeStamp = (createdAt: Date): string => {
+//   const date = new Date(createdAt);
+//   const now = new Date();
+
+//   const diffMilliseconds = now.getTime() - date.getTime();
+//   const diffSeconds = Math.round(diffMilliseconds / 1000);
+//   if (diffSeconds < 60) {
+//     return `${diffSeconds} seconds ago`;
+//   }
+
+//   const diffMinutes = Math.round(diffSeconds / 60);
+//   if (diffMinutes < 60) {
+//     return `${diffMinutes} mins ago`;
+//   }
+
+//   const diffHours = Math.round(diffMinutes / 60);
+//   if (diffHours < 24) {
+//     return `${diffHours} hours ago`;
+//   }
+
+//   const diffDays = Math.round(diffHours / 24);
+
+//   return `${diffDays} days ago`;
+// };
+
+export function assignBadges(params: {
+  criteria: {
+    type: keyof typeof BADGE_CRITERIA;
+    count: number;
+  }[];
+}) {
+  const badgeCounts: Badges = {
+    GOLD: 0,
+    SILVER: 0,
+    BRONZE: 0,
+  };
+
+  const { criteria } = params;
+
+  criteria.forEach((item) => {
+    const { type, count } = item;
+    const badgeLevels = BADGE_CRITERIA[type];
+
+    Object.keys(badgeLevels).forEach((level) => {
+      if (count >= badgeLevels[level as keyof typeof badgeLevels]) {
+        badgeCounts[level as keyof Badges] += 1;
+      }
+    });
+  });
+
+  return badgeCounts;
+}
+
+// export function processJobTitle(title: string | undefined | null): string {
+//   // Check if title is undefined or null
+//   if (title === undefined || title === null) {
+//     return "No Job Title";
+//   }
+
+//   // Split the title into words
+//   const words = title.split(" ");
+
+//   // Filter out undefined or null and other unwanted words
+//   const validWords = words.filter((word) => {
+//     return (
+//       word !== undefined &&
+//       word !== null &&
+//       word.toLowerCase() !== "undefined" &&
+//       word.toLowerCase() !== "null"
+//     );
+//   });
+
+//   // If no valid words are left, return the general title
+//   if (validWords.length === 0) {
+//     return "No Job Title";
+//   }
+
+//   // Join the valid words to create the processed title
+//   const processedTitle = validWords.join(" ");
+
+//   return processedTitle;
+// }

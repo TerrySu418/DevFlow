@@ -13,6 +13,7 @@ import {
 } from "@/types/action";
 import {
   ActionResponse,
+  Badges,
   ErrorResponse,
   TAnswer,
   TQuestion,
@@ -21,6 +22,7 @@ import {
 
 import action from "../handlers/action";
 import handleError from "../handlers/error";
+import { assignBadges } from "../utils";
 import {
   GetUserQuestionsSchema,
   GetUsersAnswersSchema,

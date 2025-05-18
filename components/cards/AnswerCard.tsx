@@ -41,7 +41,7 @@ const AnswerCard = ({
       <span id={`answer-${_id}`} className="hash-span" />
 
       {showActionBtns && (
-        <div className="background-light800 flex-center absolute -right-2 -top-5 size-9 rounded-full">
+        <div className="background-light800_dark400 flex-center absolute -right-2 -top-5 size-9 rounded-full">
           <EditDeleteAction type="Answer" itemId={_id} />
         </div>
       )}

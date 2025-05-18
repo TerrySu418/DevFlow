@@ -1,6 +1,7 @@
 "use server";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 
 import ROUTES from "@/constants/routes";
 import { Question } from "@/database";
@@ -11,6 +12,7 @@ import { ActionResponse, ErrorResponse, TAnswer } from "@/types/global";
 import action from "../handlers/action";
 import handleError from "../handlers/error";
 import { AnswerServerSchema, GetAnswersSchema } from "../validations";
+import { createInteraction } from "./interaction";
 export async function createAnswer(
   params: CreateAnswerParams
 ): Promise<ActionResponse<IAnswerDoc>> {
@@ -42,6 +44,17 @@ export async function createAnswer(
     if (!newAnswer) throw new Error("Failed to create answer");
     question.answers += 1;
     await question.save({ session });
+
+    // log the interaction
+    after(async () => {
+      await createInteraction({
+        action: "post",
+        actionId: newAnswer._id.toString(),
+        actionTarget: "answer",
+        authorId: userId as string,
+      });
+    });
+
     await session.commitTransaction();
     revalidatePath(ROUTES.QUESTION(questionId));
     return {

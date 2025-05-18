@@ -66,7 +66,7 @@ interface TAnswer {
   createdAt: Date;
   upvotes: number;
   downvotes: number;
-  question: string
+  question: string;
 }
 
 interface TUser {
@@ -101,6 +101,12 @@ interface TUser {
 }
 
 interface BadgeCounts {
+  GOLD: number;
+  SILVER: number;
+  BRONZE: number;
+}
+
+interface Badges {
   GOLD: number;
   SILVER: number;
   BRONZE: number;
