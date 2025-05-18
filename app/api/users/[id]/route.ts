@@ -16,7 +16,7 @@ export async function GET(
   if (!id) throw new NotFoundError("Account");
   try {
     await dbConnect();
-    const account = await Account.findById(id); // is equal to findOne({ _id: id })
+    const account = await Account.findOne({ userId: id }); // is equal to findOne({ _id: id })
     if (!account) throw new NotFoundError("Account");
 
     return NextResponse.json({ success: true, data: account }, { status: 200 });

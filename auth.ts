@@ -25,6 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           )) as ActionResponse<IAccountDoc>;
 
           if (!existingAccount) return null;
+          // console.log(existingAccount.userId)
 
           const { data: existingUser } = (await api.users.getById(
             existingAccount.userId.toString()

@@ -9,6 +9,7 @@ import { APIErrorResponse } from "@/types/global";
 
 export async function POST(request: Request) {
   const { providerAccountId } = await request.json();
+  // console.log("email: ", providerAccountId)
 
   try {
     await dbConnect();
